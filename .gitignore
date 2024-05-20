@@ -1,0 +1,6 @@
+.DS_Store
+.ipynb_checkpoints
+ml-1m
+ml-100k
+*.csv
+local-runs
