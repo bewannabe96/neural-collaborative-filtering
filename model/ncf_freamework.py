@@ -12,16 +12,16 @@ class NCFFramework(nn.Module):
             nn.ReLU(),
         ), out_size
 
-    def __init__(self, M, N, ncfl_num_layers, ncfl_out_size, dropout_prob=0.5):
+    def __init__(self, user_number, item_number, ncfl_layer_number, ncfl_out_size, dropout_prob=0.5):
         super(NCFFramework, self).__init__()
 
-        self.M = M
-        self.N = N
+        self.M = user_number
+        self.N = item_number
 
-        assert ncfl_num_layers >= 1, "Neural CF layers should have at least one layer."
-        self.ncfl_num_layers = ncfl_num_layers  # Number of layers in 'neural collaborative filtering layers'
+        assert ncfl_layer_number >= 1, "Neural CF layers should have at least one layer."
+        self.ncfl_layer_number = ncfl_layer_number  # Number of layers in 'neural collaborative filtering layers'
 
-        self.ncfl_in_size = ((2 ** self.ncfl_num_layers) * ncfl_out_size)
+        self.ncfl_in_size = ((2 ** self.ncfl_layer_number) * ncfl_out_size)
         self.ncfl_out_size = ncfl_out_size  # 'neural collaborative filtering layers' output dimension
 
         self.embedding_dim = self.ncfl_in_size // 2
@@ -31,7 +31,7 @@ class NCFFramework(nn.Module):
 
         last_out_size = self.ncfl_in_size
         layers = []
-        for i in range(self.ncfl_num_layers):
+        for i in range(self.ncfl_layer_number):
             layer, last_out_size = NCFFramework.__create_layer(last_out_size, dropout_prob)
             layers.append(layer)
         self.phi_X = nn.Sequential(*layers)

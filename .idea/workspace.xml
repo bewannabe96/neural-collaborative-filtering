@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7ca43301-3923-413d-a3e2-dce4cb2416a4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/notebook/preprocess_daytrip_dataset.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sagemaker/sagemaker.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/collaborative-filtering.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluation_metric.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/evaluation_metric.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/mlp.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/mlp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/model_validation-run1-train.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run1-train.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/model_validation-run1-val.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run1-val.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/model_validation-run2-train.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run2-train.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/model_validation-run2-val.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run2-val.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/model_validation-run3-train.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run3-train.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/model_validation-run3-val.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run3-val.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/neumf.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/neumf.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/implicit_sparse_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/implicit_sparse_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mf_review.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/mf_review.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model_validation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/model_validation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ncf_freamework.py" beforeDir="false" afterPath="$PROJECT_DIR$/ncf_freamework.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ncf_review.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/ncf_review.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/neu_mf.py" beforeDir="false" afterPath="$PROJECT_DIR$/neu_mf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preprocess_movie_lens_dataset.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/preprocess_movie_lens_dataset.ipynb" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="Jupyter Notebook" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bewannabe96&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/bewannabe96/neural-collaborative-filtering.git&quot;,
+    &quot;accountId&quot;: &quot;44bc9fd9-8b52-4de3-8163-6cbff0fcb999&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2g83Tfzk2BS6iL8w8kwrsIJdNV0" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+    <ConfirmationsSetting value="1" id="Remove" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/bewannabe/Documents/personal_project/collaborative-filtering&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;,
+      &quot;module&quot;,
+      &quot;repository&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dataset" />
+      <recent name="$PROJECT_DIR$/model" />
+      <recent name="$PROJECT_DIR$/scratch" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/MovieLens-25m" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7ca43301-3923-413d-a3e2-dce4cb2416a4" name="Changes" comment="" />
+      <created>1715065387194</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715065387194</updated>
+      <workItem from="1715065387985" duration="17758000" />
+      <workItem from="1715146052061" duration="17594000" />
+      <workItem from="1716514304939" duration="5631000" />
+      <workItem from="1716528258427" duration="6000" />
+      <workItem from="1716528325579" duration="1880000" />
+      <workItem from="1716530943653" duration="79000" />
+      <workItem from="1716531030110" duration="90000" />
+      <workItem from="1716531141749" duration="126000" />
+      <workItem from="1716531269412" duration="3665000" />
+      <workItem from="1716795674122" duration="20338000" />
+      <workItem from="1716963871598" duration="26985000" />
+      <workItem from="1717120077079" duration="126000" />
+      <workItem from="1717120234059" duration="14458000" />
+      <workItem from="1718328227973" duration="13490000" />
+      <workItem from="1718779052078" duration="595000" />
+      <workItem from="1720576273045" duration="27922000" />
+      <workItem from="1720766177587" duration="3700000" />
+      <workItem from="1721193654009" duration="17018000" />
+      <workItem from="1721613028682" duration="3446000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -4,7 +4,7 @@ import torch.nn as nn
 
 class NeuMF(nn.Module):
     @staticmethod
-    def create_layer(in_size, dropout_prob=0.5):
+    def __create_layer(in_size, dropout_prob=0.5):
         out_size = in_size // 2
         return nn.Sequential(
             nn.Dropout(p=dropout_prob),
@@ -12,11 +12,13 @@ class NeuMF(nn.Module):
             nn.ReLU(),
         ), out_size
 
-    def __init__(self, M, N, predictive_factor_num, mlp_layer_num, dropout_prob=0.5):
+    def __init__(self, name, user_number, item_number, predictive_factor_num, mlp_layer_num, dropout_prob=0.5):
         super(NeuMF, self).__init__()
 
-        self.M = M
-        self.N = N
+        self.name = name
+
+        self.user_number = user_number
+        self.item_number = item_number
 
         assert predictive_factor_num % 2 == 0, "Number of predictive factor should be divisible by 2."
 
@@ -27,21 +29,21 @@ class NeuMF(nn.Module):
         mlp_in_size = ((2 ** mlp_layer_num) * mlp_out_size)
 
         self.mlp_embedding_dim = mlp_in_size // 2
-        self.mlp_P = nn.Embedding(num_embeddings=self.M, embedding_dim=self.mlp_embedding_dim)
-        self.mlp_Q = nn.Embedding(num_embeddings=self.N, embedding_dim=self.mlp_embedding_dim)
+        self.mlp_P = nn.Embedding(num_embeddings=self.user_number, embedding_dim=self.mlp_embedding_dim)
+        self.mlp_Q = nn.Embedding(num_embeddings=self.item_number, embedding_dim=self.mlp_embedding_dim)
 
         last_out_size = mlp_in_size
         layers = []
         for i in range(mlp_layer_num):
-            layer, last_out_size = NeuMF.create_layer(last_out_size, dropout_prob)
+            layer, last_out_size = NeuMF.__create_layer(last_out_size, dropout_prob)
             layers.append(layer)
         self.mlp_layer_X = nn.Sequential(*layers)
         # END OF MLP
 
         # GMF
         self.gmf_embedding_dim = predictive_factor_num // 2
-        self.gmf_P = nn.Embedding(num_embeddings=self.M, embedding_dim=self.gmf_embedding_dim)
-        self.gmf_Q = nn.Embedding(num_embeddings=self.N, embedding_dim=self.gmf_embedding_dim)
+        self.gmf_P = nn.Embedding(num_embeddings=self.user_number, embedding_dim=self.gmf_embedding_dim)
+        self.gmf_Q = nn.Embedding(num_embeddings=self.item_number, embedding_dim=self.gmf_embedding_dim)
         # END OF GMF
 
         self.neu_mf = nn.Linear(predictive_factor_num, 1)
@@ -65,14 +67,17 @@ class NeuMF(nn.Module):
         self.neu_mf.bias.data.zero_()
 
     def forward(self, user_id, item_id):
+        user_index = torch.sub(user_id, 1)
+        item_index = torch.sub(item_id, 1)
+
         # GMF
-        gfm_p_u = self.gmf_P(user_id)
-        gfm_q_i = self.gmf_Q(item_id)
+        gfm_p_u = self.gmf_P(user_index)
+        gfm_q_i = self.gmf_Q(item_index)
         gfm_out = torch.multiply(gfm_p_u, gfm_q_i)
 
         # MLP
-        mlp_p_u = self.mlp_P(user_id)
-        mlp_q_i = self.mlp_Q(item_id)
+        mlp_p_u = self.mlp_P(user_index)
+        mlp_q_i = self.mlp_Q(item_index)
         layer_1_out = torch.cat((mlp_p_u, mlp_q_i), -1)
         mlp_out = self.mlp_layer_X(layer_1_out)
 
