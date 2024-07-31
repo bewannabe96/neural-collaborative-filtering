@@ -5,62 +5,57 @@ from torch.utils import data
 
 class TrainDataset(data.Dataset):
     @staticmethod
-    def __create_negative_samples(item_number, pos_sparse_user, pos_sparse_item, sample_ratio):
-        all_items = torch.arange(item_number, dtype=torch.int32) + 1
+    def __create_negative_samples(sparse_user: torch.Tensor, sparse_neg_items: torch.Tensor, sample_ratio: int):
+        num_rows, num_cols = sparse_neg_items.shape
 
-        negative_samples = torch.tensor([], dtype=torch.int32)
+        sparse_neg_user = sparse_user.unsqueeze(1).repeat(1, sample_ratio).reshape(-1)
 
-        for user_id in pos_sparse_user.unique():
-            positive_items = pos_sparse_item[pos_sparse_user == user_id]
-            negative_sample_size = len(positive_items) * sample_ratio
+        sampled_rows = []
+        for row in sparse_neg_items:
+            indices = torch.randperm(num_cols)[:sample_ratio]
+            sampled_row = row[indices]
+            sampled_rows.append(sampled_row)
+        sparse_neg_sample_items = torch.stack(sampled_rows).reshape(-1)
 
-            possible_negative_items = all_items[torch.isin(all_items, positive_items, invert=True)]
+        return sparse_neg_user, sparse_neg_sample_items
 
-            random_indices = torch.randperm(len(possible_negative_items))[:negative_sample_size]
-
-            negative_items = possible_negative_items[random_indices].unsqueeze(dim=1)
-            negative_items = torch.cat((torch.full((negative_items.size(0), 1), user_id), negative_items), dim=1)
-
-            negative_samples = torch.cat((negative_samples, negative_items))
-
-        return negative_samples[:, 0], negative_samples[:, 1]
-
-    def __init__(self, user_number: int, item_number: int, sparse_user: np.ndarray, sparse_item: np.ndarray,
-                 negative_sample_ratio):
+    def __init__(self, sparse_user: np.ndarray, sparse_pos_item: np.ndarray, sparse_neg_items: np.ndarray,
+                 negative_sample_ratio: int):
         super(TrainDataset, self).__init__()
 
-        assert len(sparse_user) == len(sparse_item), "Length of `sparse_user` and `sparse_item` must be equal."
+        assert len(sparse_user) == len(sparse_pos_item), \
+            "Length of `sparse_user` and `sparse_pos_item` must be equal."
+        assert len(sparse_user) == len(sparse_neg_items), \
+            "Length of `sparse_user` and `sparse_neg_items` must be equal."
 
-        self.user_number = user_number
-        self.item_number = item_number
         self.negative_sample_ratio = negative_sample_ratio
 
-        self.pos_sparse_user = torch.from_numpy(sparse_user)
-        self.pos_sparse_item = torch.from_numpy(sparse_item)
-        self.p_len = len(self.pos_sparse_user)
-        self.pos_sparse_label = torch.tensor([1.0] * self.p_len)
+        self.original_size = len(sparse_user)
+        self.sparse_original_user = torch.from_numpy(sparse_user)
+        self.sparse_original_pos_item = torch.from_numpy(sparse_pos_item)
+        self.sparse_original_neg_items = torch.from_numpy(sparse_neg_items)
 
-        self.sparse_user = self.pos_sparse_user
-        self.sparse_item = self.pos_sparse_item
-        self.len = self.p_len
-        self.sparse_label = self.pos_sparse_label
+        self.size = self.original_size
+        self.sparse_user = self.sparse_original_user
+        self.sparse_item = self.sparse_original_pos_item
+        self.sparse_label = torch.tensor([1.0] * self.original_size)
 
     def __len__(self):
-        return self.len
+        return self.size
 
     def __getitem__(self, idx):
         return self.sparse_user[idx], self.sparse_item[idx], self.sparse_label[idx]
 
     def regenerate_negative_samples(self):
-        neg_sparse_user, neg_sparse_item = TrainDataset.__create_negative_samples(
-            self.item_number, self.pos_sparse_user, self.pos_sparse_item, self.negative_sample_ratio)
-        n_len = neg_sparse_user.size(0)
-        neg_sparse_label = torch.tensor([0.0] * n_len)
+        sparse_neg_user, sparse_neg_item = TrainDataset.__create_negative_samples(
+            self.sparse_original_user, self.sparse_original_neg_items, self.negative_sample_ratio
+        )
 
-        self.sparse_user = torch.cat((self.pos_sparse_user, neg_sparse_user), dim=0)
-        self.sparse_item = torch.cat((self.pos_sparse_item, neg_sparse_item), dim=0)
-        self.len = self.p_len + n_len
-        self.sparse_label = torch.cat((self.pos_sparse_label, neg_sparse_label), dim=0)
+        neg_size = sparse_neg_user.size(0)
 
-    def get_sparsity(self):
-        return 1 - (self.len / (self.user_number * self.item_number))
+        self.size = self.original_size + neg_size
+        self.sparse_user = torch.cat((self.sparse_original_user, sparse_neg_user), dim=0)
+        self.sparse_item = torch.cat((self.sparse_original_pos_item, sparse_neg_item), dim=0)
+        self.sparse_label = torch.cat((
+            torch.tensor([1.0] * self.original_size), torch.tensor([0.0] * sparse_neg_user.size(0))), dim=0
+        )

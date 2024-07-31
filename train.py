@@ -53,39 +53,49 @@ def parse_arguments():
 
 def create_datasets(train_data_dir, validation_data_dir, negative_sample_ratio):
     train_filenames = glob.glob(train_data_dir + '/*.csv')
-    validation_filenames = glob.glob(validation_data_dir + '/*.csv')
-
     train_df = read_multiple_csv_as_df(train_filenames, header=None)
+
+    train_sparse_neg_items = np.empty(
+        shape=(len(train_df), len(train_df.iloc[0, 2].split('|'))),
+        dtype=np.int32
+    )
+
+    for i, row in enumerate(train_df.iloc[:, 2]):
+        train_sparse_neg_items[i, :] = np.fromiter((x for x in row.split('|')), dtype=np.int32)
+
+    train_dataset = TrainDataset(
+        train_df.iloc[:, 0].values.astype(np.int32),
+        train_df.iloc[:, 1].values.astype(np.int32),
+        train_sparse_neg_items,
+        negative_sample_ratio
+    )
+
+    # ==============================
+
+    validation_filenames = glob.glob(validation_data_dir + '/*.csv')
     validation_df = read_multiple_csv_as_df(validation_filenames, header=None)
 
-    # ==============================
-
-    train_max_user, train_max_item = train_df.max()
-    validation_max_user, validation_max_item = validation_df.iloc[:, [0, 1]].max()
-
-    user_number = max(train_max_user, validation_max_user)
-    item_number = max(train_max_item, validation_max_item)
-
-    # ==============================
-
-    train_dataset = TrainDataset(user_number, item_number,
-                                 train_df.iloc[:, 0].values.astype(np.int32),
-                                 train_df.iloc[:, 1].values.astype(np.int32),
-                                 negative_sample_ratio)
-
-    # ==============================
-
-    sparse_neg_items = np.empty(
+    val_sparse_neg_items = np.empty(
         shape=(len(validation_df), len(validation_df.iloc[0, 2].split('|'))),
         dtype=np.int32
     )
 
     for i, row in enumerate(validation_df.iloc[:, 2]):
-        sparse_neg_items[i, :] = np.fromiter((x for x in row.split('|')), dtype=np.int32)
+        val_sparse_neg_items[i, :] = np.fromiter((x for x in row.split('|')), dtype=np.int32)
 
-    validation_dataset = ValidationDataset(validation_df.iloc[:, 0].values.astype(np.int32),
-                                           validation_df.iloc[:, 1].values.astype(np.int32),
-                                           sparse_neg_items)
+    validation_dataset = ValidationDataset(
+        validation_df.iloc[:, 0].values.astype(np.int32),
+        validation_df.iloc[:, 1].values.astype(np.int32),
+        val_sparse_neg_items
+    )
+
+    # ==============================
+
+    train_max_user, train_max_item = train_df.iloc[:, [0, 1]].max()
+    validation_max_user, validation_max_item = validation_df.iloc[:, [0, 1]].max()
+
+    user_number = max(train_max_user, validation_max_user)
+    item_number = max(train_max_item, validation_max_item)
 
     return user_number, item_number, train_dataset, validation_dataset
 

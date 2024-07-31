@@ -5,34 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ca43301-3923-413d-a3e2-dce4cb2416a4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/notebook/preprocess_daytrip_dataset.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sagemaker/sagemaker.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/collaborative-filtering.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluation_metric.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/evaluation_metric.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/mlp.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/mlp.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/model_validation-run1-train.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run1-train.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/model_validation-run1-val.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run1-val.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/model_validation-run2-train.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run2-train.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/model_validation-run2-val.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run2-val.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/model_validation-run3-train.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run3-train.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/model_validation-run3-val.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/model_validation-run3-val.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img/neumf.png" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/img/neumf.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/implicit_sparse_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/implicit_sparse_dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mf_review.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/mf_review.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_validation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/model_validation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ncf_freamework.py" beforeDir="false" afterPath="$PROJECT_DIR$/ncf_freamework.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ncf_review.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/ncf_review.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/neu_mf.py" beforeDir="false" afterPath="$PROJECT_DIR$/neu_mf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/preprocess_movie_lens_dataset.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebook/preprocess_movie_lens_dataset.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/train_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/train_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/validation_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/validation_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,8 +110,21 @@
       <workItem from="1720576273045" duration="27922000" />
       <workItem from="1720766177587" duration="3700000" />
       <workItem from="1721193654009" duration="17018000" />
-      <workItem from="1721613028682" duration="3446000" />
+      <workItem from="1721613028682" duration="26208000" />
+      <workItem from="1721786450264" duration="160000" />
+      <workItem from="1721786643167" duration="155000" />
+      <workItem from="1721787806390" duration="120000" />
+      <workItem from="1721965507455" duration="13372000" />
     </task>
+    <task id="LOCAL-00001" summary="First revision">
+      <option name="closed" value="true" />
+      <created>1721620763143</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1721620763143</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -151,5 +140,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First revision" />
+    <option name="LAST_COMMIT_MESSAGE" value="First revision" />
   </component>
 </project>
