@@ -2,7 +2,6 @@ import argparse
 import glob
 import json
 import os
-import time
 
 import numpy as np
 import torch
@@ -100,7 +99,7 @@ def create_datasets(train_data_dir, validation_data_dir, negative_sample_ratio):
     return user_number, item_number, train_dataset, validation_dataset
 
 
-def train(model, train_loader, val_loader, model_dir, tensorboard_log_dir, device=torch.device('cpu'),
+def train(model, train_loader, val_loader, model_path, tensorboard_log_dir, device=torch.device('cpu'),
           epochs=10, lr=0.01, evaluation_k=10):
     best_norm_dcg = 0
 
@@ -113,51 +112,53 @@ def train(model, train_loader, val_loader, model_dir, tensorboard_log_dir, devic
     model.eval()
     with torch.no_grad():
         hr, mean_ap, norm_dcg = evaluation.evaluate(model, val_loader, evaluation_k, device=device)
-        summary_writer.add_scalar("HR@" + str(evaluation_k) + "/validation", hr, 0)
-        summary_writer.add_scalar("mAP@" + str(evaluation_k) + "/validation", mean_ap, 0)
-        summary_writer.add_scalar("nDCG@" + str(evaluation_k) + "/validation", norm_dcg, 0)
+        # summary_writer.add_scalar("HR@" + str(evaluation_k) + "/validation", hr, 0)
+        # summary_writer.add_scalar("mAP@" + str(evaluation_k) + "/validation", mean_ap, 0)
+        # summary_writer.add_scalar("nDCG@" + str(evaluation_k) + "/validation", norm_dcg, 0)
 
     # start train
-    for epoch in range(epochs):
-        start_time = time.time()
-
-        batch = 0
-        loss_sum = 0
-        model.train()
-        train_loader.dataset.regenerate_negative_samples()
-        for user, item, label in train_loader:
-            batch += 1
-
-            user = user.to(device)
-            item = item.to(device)
-            label = label.reshape(-1, 1).to(device)
-
-            model.zero_grad()
-            outputs = model(user, item)
-
-            loss = criterion(outputs, label)
-            loss_sum += loss.item()
-
-            loss.backward()
-            optimizer.step()
-
-        summary_writer.add_scalar("Loss/train", loss_sum / batch, epoch + 1)
-
-        model.eval()
-        with torch.no_grad():
-            hr, mean_ap, norm_dcg = evaluation.evaluate(model, val_loader, evaluation_k, device=device)
-            summary_writer.add_scalar("HR@" + str(evaluation_k) + "/validation", hr, epoch + 1)
-            summary_writer.add_scalar("mAP@" + str(evaluation_k) + "/validation", mean_ap, epoch + 1)
-            summary_writer.add_scalar("nDCG@" + str(evaluation_k) + "/validation", norm_dcg, epoch + 1)
-
-        elapsed_time = time.time() - start_time
-        summary_writer.add_scalar("train-time", elapsed_time, epoch + 1)
-
-        if norm_dcg > best_norm_dcg:
-            best_norm_dcg = norm_dcg
-
-            if 'RANK' not in os.environ or os.environ['RANK'] == '0':
-                torch.save(model.state_dict(), model_dir)
+    # for epoch in range(epochs):
+    #     start_time = time.time()
+    #
+    #
+    #     batch = 0
+    #     loss_sum = 0
+    #     model.train()
+    #     train_loader.dataset.regenerate_negative_samples()
+    #     for user, item, label in train_loader:
+    #         batch += 1
+    #
+    #         user = user.to(device)
+    #         item = item.to(device)
+    #         label = label.reshape(-1, 1).to(device)
+    #
+    #         model.zero_grad()
+    #         outputs = model(user, item)
+    #
+    #         loss = criterion(outputs, label)
+    #         loss_sum += loss.item()
+    #
+    #         loss.backward()
+    #         optimizer.step()
+    #
+    #     summary_writer.add_scalar("Loss/train", loss_sum / batch, epoch + 1)
+    #
+    #     model.eval()
+    #     with torch.no_grad():
+    #         hr, mean_ap, norm_dcg = evaluation.evaluate(model, val_loader, evaluation_k, device=device)
+    #         summary_writer.add_scalar("HR@" + str(evaluation_k) + "/validation", hr, epoch + 1)
+    #         summary_writer.add_scalar("mAP@" + str(evaluation_k) + "/validation", mean_ap, epoch + 1)
+    #         summary_writer.add_scalar("nDCG@" + str(evaluation_k) + "/validation", norm_dcg, epoch + 1)
+    #
+    #     elapsed_time = time.time() - start_time
+    #     summary_writer.add_scalar("train-time", elapsed_time, epoch + 1)
+    #
+    #     if norm_dcg > best_norm_dcg:
+    #         best_norm_dcg = norm_dcg
+    #
+    #         if 'RANK' not in os.environ or os.environ['RANK'] == '0':
+    #             torch.save(model.state_dict(), model_path)
+    torch.save(model.state_dict(), model_path)
 
 
 if __name__ == '__main__':
@@ -200,7 +201,7 @@ if __name__ == '__main__':
         model,
         train_loader=train_loader,
         val_loader=val_loader,
-        model_dir=os.path.join(args.model_dir, 'model.pth'),
+        model_path=os.path.join(args.model_dir, 'model.pth'),
         tensorboard_log_dir=os.path.join(args.output_dir, "tensorboard"),
         epochs=args.epochs, lr=args.lr,
         device=device, evaluation_k=args.eval_k,

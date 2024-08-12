@@ -1,9 +1,4 @@
 .DS_Store
 .ipynb_checkpoints
 __pycache__
-ml-1m
-ml-100k
-*.csv
-local-runs
-*.pth
 scratch
