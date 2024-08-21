@@ -14,21 +14,15 @@ logger = logging.getLogger(__name__)
 
 
 def model_fn(model_dir):
-    model_config = json.load(open(os.path.join(model_dir, "code/model-config.json"), 'r'))
-
-    model = NeuMF(
-        model_config['name'],
-        model_config['user_embedding_size'],
-        model_config['item_embedding_size'],
-        predictive_factor_num=model_config['design']['predictive_factor'],
-        mlp_layer_num=model_config['design']['mlp_layer'],
-        dropout_prob=0.3
+    model = NeuMF.load(
+        'neumf',
+        torch.load(os.path.join(model_dir, "model.pth"), map_location=DEVICE, weights_only=True),
+        dropout_prob=0.3,
     ).to(device=DEVICE)
 
-    model.load_state_dict(torch.load(os.path.join(model_dir, "model.pth"), map_location=DEVICE, weights_only=True))
     model.eval()
 
-    return model, model_config
+    return model
 
 
 def input_fn(request_body, request_content_type):
@@ -50,12 +44,12 @@ def input_fn(request_body, request_content_type):
 
 
 def predict_fn(input_data, model):
-    model, model_config = model
+    model = model
     user_seq_ids, item_seq_ids, user_tensor, item_tensor = input_data
 
     ignorable = torch.logical_or(
-        user_tensor > model_config['user_embedding_size'],
-        item_tensor > model_config['item_embedding_size']
+        user_tensor > model.user_number,
+        item_tensor > model.item_number,
     )
 
     user_tensor[ignorable] = 1

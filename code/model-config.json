@@ -1,9 +1,0 @@
-{
-  "name": "neumf",
-  "user_embedding_size": 687249,
-  "item_embedding_size": 70776,
-  "design": {
-    "mlp_layer": 4,
-    "predictive_factor": 64
-  }
-}

@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import re
 
 
 class NeuMF(nn.Module):
@@ -11,6 +12,36 @@ class NeuMF(nn.Module):
             nn.Linear(in_size, out_size),
             nn.ReLU(),
         ), out_size
+
+    @staticmethod
+    def load(name, state_dict, dropout_prob=0.5):
+        user_number = 0
+        item_number = 0
+        predictive_factor = 0
+        mlp_layer = 0
+
+        regex = r'^mlp_layer_X\.(\d+)\.1\.weight$'
+        for layer in state_dict:
+            match = re.search(regex, layer)
+            if match:
+                layer = int(match.group(1)) + 1
+                if layer > mlp_layer:
+                    mlp_layer = layer
+            elif layer == 'mlp_P.weight':
+                user_number = state_dict[layer].shape[0]
+            elif layer == 'mlp_Q.weight':
+                item_number = state_dict[layer].shape[0]
+            elif layer == 'neu_mf.weight':
+                predictive_factor = state_dict[layer].shape[1]
+
+        model = NeuMF(
+            name, user_number, item_number,
+            predictive_factor_num=predictive_factor,
+            mlp_layer_num=mlp_layer,
+            dropout_prob=dropout_prob
+        )
+        model.load_state_dict(state_dict)
+        return model
 
     def __init__(self, name, user_number, item_number, predictive_factor_num, mlp_layer_num, dropout_prob=0.5):
         super(NeuMF, self).__init__()
