@@ -51,8 +51,29 @@ def handler(event, context):
         EndpointConfigName=unq_model_name,
     )
 
+    response = sagemaker_client.describe_endpoint(EndpointName=model_name)
+    old_endpoint_config = response['EndpointConfigName']
+
+    response = sagemaker_client.describe_endpoint_config(EndpointConfigName=old_endpoint_config)
+    old_models = []
+    for variant in response['ProductionVariants']:
+        old_models.append(variant['ModelName'])
+
     for name in delete_models:
+        if name in old_models:
+            continue
         sagemaker_client.delete_model(ModelName=name)
 
     for name in delete_endpoint_configs:
+        if name == old_endpoint_config:
+            continue
         sagemaker_client.delete_endpoint_config(EndpointConfigName=name)
+
+
+if __name__ == '__main__':
+    handler({
+        'model_name': 'neumf-daylog-pref-v3-4-64',
+        'role': '',
+        'model_package_arn': '',
+        'instance_type': '',
+    }, None)
